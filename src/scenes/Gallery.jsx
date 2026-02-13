@@ -8,8 +8,11 @@ export default function Gallery({ photos, setPhotos, onNext }) {
   useEffect(() => {
     // Auto-load images from public folder
     const imageFiles = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg", "6.jpeg"];
-    const basePath = import.meta.env.BASE_URL;
-    const loadedPhotos = imageFiles.map((file) => `${basePath}${file}`);
+    const basePath = import.meta.env.BASE_URL || '/valentina/';
+    const loadedPhotos = imageFiles.map((file) => {
+      // Use absolute path for GitHub Pages
+      return `${basePath}${file}`;
+    });
     setPhotos(loadedPhotos);
   }, []);
 
