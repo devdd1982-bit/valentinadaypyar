@@ -37,7 +37,7 @@ body {
   justify-content: center;
   flex-direction: column;
   overflow: hidden;
-  background-image: url('/valentine/background.jpeg');
+  background-image: url('/background.jpeg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
