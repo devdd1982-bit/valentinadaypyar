@@ -11,8 +11,8 @@ body {
   background-color: #1a1a1a;
   min-height: 100vh;
   overflow: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
@@ -58,10 +58,19 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Performance helpers */
-.falling-heart, .sparkle, .circle, .gift-button, .proposal-hearts {
-  will-change: transform, opacity;
-  -webkit-tap-highlight-color: transparent;
+/* Performance helpers - only use on desktop */
+@media (min-width: 769px) {
+  .falling-heart, .sparkle, .circle, .gift-button, .proposal-hearts {
+    will-change: transform, opacity;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Mobile: disable will-change for performance */
+@media (max-width: 768px) {
+  .falling-heart, .sparkle, .circle {
+    will-change: auto;
+  }
 }
 
 /* Mobile / small screens: reduce expensive effects */
@@ -110,6 +119,33 @@ body {
   /* Reduce decorative animations and effects on small devices */
   .proposal-hearts, .proposal-text, .intro-subtitle::before, .intro-subtitle::after {
     animation: none !important;
+  }
+
+  /* Performance: remove will-change from decorative elements on mobile */
+  .falling-heart, .sparkle, .circle {
+    will-change: auto !important;
+  }
+
+  /* Simplify animations on mobile - disable blur, reduce complexity */
+  * {
+    text-shadow: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  }
+
+  /* Reduce animation count for decorative elements */
+  .falling-hearts-container, .sparkles-container, .floating-circles {
+    display: none !important;
+  }
+
+  /* Smooth transitions for interactive elements */
+  button, .gift-button, .yes-button, .no-button, .note-button {
+    transition: all 0.2s ease !important;
+  }
+
+  /* Enable hardware acceleration only for necessary elements */
+  .gift-button, .yes-button, .no-button {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 }
 
